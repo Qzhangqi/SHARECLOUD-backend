@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Data
 public class AccountRole {
     @Id
-    @JoinColumn(name = "account", referencedColumnName = "id")
-    private Integer id;
+    @JoinColumn(name = "account", referencedColumnName = "username")
+    private String username;
 
     @Id
     @Column(nullable = false)

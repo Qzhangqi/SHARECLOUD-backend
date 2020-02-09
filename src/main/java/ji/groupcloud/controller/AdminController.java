@@ -12,7 +12,7 @@ public class AdminController {
     /**
      * 修改管理员的账户和密码
      */
-    @PostMapping("/admin/account")
+    @PostMapping("/account")
     public void postAccount(Account account) {
 
     }

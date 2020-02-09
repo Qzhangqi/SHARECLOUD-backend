@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class AccountRoleKey implements Serializable {
 
-    private Integer id;
+    private String username;
 
     private String role;
 }
