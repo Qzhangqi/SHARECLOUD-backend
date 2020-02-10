@@ -4,6 +4,7 @@ import ji.groupcloud.dao.AccountRepository;
 import ji.groupcloud.dto.Account;
 import ji.groupcloud.dto.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,14 @@ public class AccountController {
 
         accountRepository.save(account);
 
-        return new Result<String>("0000", "注册成功", "注册成功");
+        return new Result<String>("0001", "注册成功", "注册成功");
+    }
+
+    /**
+     * 获取注册码
+     */
+    @GetMapping("/inviteToken")
+    public Result<String> getInviteToken() {
+        return new Result<String>("0001", "获取成功", "inviteToken");
     }
 }

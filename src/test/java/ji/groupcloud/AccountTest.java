@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -55,4 +58,8 @@ public class AccountTest {
         log.info(loginController.login(zq).toString());
     }
 
+    @Test
+    public void someTest() {
+        log.info(Calendar.getInstance().getTime().toString());
+    }
 }

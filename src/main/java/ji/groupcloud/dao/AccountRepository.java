@@ -9,4 +9,6 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     List<Account> findAllByUsername(@Param("username") String username);
+
+    void deleteAccountByUsername(@Param("username") String username);
 }
