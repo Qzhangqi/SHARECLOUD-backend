@@ -28,7 +28,7 @@ public class InviteTokenCache {
     private static ConcurrentLinkedDeque<InviteToken> inviteTokenDeque = new ConcurrentLinkedDeque<>();
 
     public static String creatInviteToken(String username) {
-        String tokenStr = RandomStringUtils.random(20);
+        String tokenStr = RandomStringUtils.random(20, true, true);
         InviteToken inviteToken = new InviteToken(tokenStr, username, Calendar.getInstance().getTime());
         inviteTokenMap.put(tokenStr, inviteToken);
         inviteTokenDeque.addLast(inviteToken);

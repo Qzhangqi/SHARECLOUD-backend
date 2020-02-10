@@ -3,9 +3,9 @@ package ji.groupcloud.controller;
 import ji.groupcloud.dao.AccountRepository;
 import ji.groupcloud.dto.Account;
 import ji.groupcloud.dto.Result;
+import ji.groupcloud.util.InviteTokenCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,27 +17,18 @@ public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
-    /**
-     * 注册账户
-     */
-    @PostMapping("/account")
-    public Result<String> postAccount(Account account) {
-        String username = account.getUsername();
-        List<Account> accountList = accountRepository.findAllByUsername(username);
-
-        if (!accountList.isEmpty())
-            return new Result<String>("0000", "用户名已存在", "用户名已存在");
-
-        accountRepository.save(account);
-
-        return new Result<String>("0001", "注册成功", "注册成功");
-    }
 
     /**
-     * 获取注册码
+     * 获取注册邀请码
      */
     @GetMapping("/inviteToken")
-    public Result<String> getInviteToken() {
-        return new Result<String>("0001", "获取成功", "inviteToken");
+    public Result<String> getInviteToken(String username) {
+        List<Account> accountList = accountRepository.findAllByUsername(username);
+
+        if (accountList.isEmpty())
+            return new Result<String>("0000", "获取失败", "用户不存在");
+
+        String tokenStr = InviteTokenCache.creatInviteToken(username);
+        return new Result<String>("0001", "获取成功", tokenStr);
     }
 }

@@ -5,6 +5,7 @@ import ji.groupcloud.dao.AccountRoleRepository;
 import ji.groupcloud.dao.RolePermissionsRepository;
 import ji.groupcloud.dto.Account;
 import ji.groupcloud.dto.AccountRole;
+import ji.groupcloud.util.InviteTokenCache;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -40,19 +41,30 @@ public class GcRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         //获取账号密码
-        UsernamePasswordToken t = (UsernamePasswordToken) token;
-        String username = token.getPrincipal().toString();
-        String password = new String(t.getPassword());
+        if (token instanceof UsernamePasswordToken) {
+            UsernamePasswordToken t = (UsernamePasswordToken) token;
+            String username = token.getPrincipal().toString();
+            String password = new String(t.getPassword());
 
-        List<Account> justOne = accountRepository.findAllByUsername(username);
-        if (justOne.isEmpty()) {
-            throw new AuthenticationException("账户不存在");
+            List<Account> justOne = accountRepository.findAllByUsername(username);
+            if (justOne.isEmpty()) {
+                throw new AuthenticationException("账户不存在");
+            }
+
+            if (!password.equals(justOne.get(0).getPassword())) {
+                throw new AuthenticationException("密码错误");
+            }
+            return new SimpleAuthenticationInfo(username, password, getName());
+        } else if (token instanceof InviteToken) {
+            String tokenStr = (String) token.getPrincipal();
+
+            if (InviteTokenCache.verifyInviteToken(tokenStr) == null) {
+                throw new AuthenticationException("认证信息不存在");
+            }
+
+            return new SimpleAuthenticationInfo(tokenStr, tokenStr, getName());
+        } else {
+            throw new AuthenticationException("token 类型异常");
         }
-
-        if (!password.equals(justOne.get(0).getPassword())) {
-            throw new AuthenticationException("密码错误");
-        }
-
-        return new SimpleAuthenticationInfo(username, password, getName());
     }
 }

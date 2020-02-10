@@ -1,11 +1,12 @@
 spring:
   datasource:
-    data: classpath*:sql/init.sql
     url: jdbc:h2:file:~/.h2/DBName;
     platform: h2
     username: ji
     password:
     driverClassName: org.h2.Driver
+    data: classpath:sql/init.sql
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -15,11 +16,12 @@ spring:
         show_sql: true
         use_sql_comments: true
         format_sql: true
+
   h2:
     console:
-      enabled: true
+      enabled: on
       path: /console
       settings:
         trace: false
-        web-allow-others: true
+        web-allow-others: on
 

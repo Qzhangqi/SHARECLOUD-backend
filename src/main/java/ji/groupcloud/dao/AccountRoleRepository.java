@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface AccountRoleRepository extends JpaRepository<AccountRole, Integer> {
     List<AccountRole> findAllByUsername(@Param("username") String username);
+
+    void deleteAllByUsername(@Param("username") String username);
 }

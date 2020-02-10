@@ -3,15 +3,15 @@ package ji.groupcloud;
 import ji.groupcloud.controller.AccountController;
 import ji.groupcloud.controller.LoginController;
 import ji.groupcloud.dao.AccountRepository;
+import ji.groupcloud.dao.AccountRoleRepository;
 import ji.groupcloud.dto.Account;
+import ji.groupcloud.dto.AccountRole;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.Instant;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -22,32 +22,28 @@ public class AccountTest {
     private AccountRepository accountRepository;
 
     @Autowired
-    private AccountController accountController;
+    private AccountRoleRepository accountRoleRepository;
 
     @Autowired
     private LoginController loginController;
 
     @Test
     public void TestSignUp() {
-        Account zq = new Account();
-        zq.setUsername("zq");
-        zq.setPassword("123");
-        zq.setInviter("admin");
-        log.info(accountController.postAccount(zq).getData());
+        Account admin = new Account();
+        admin.setUsername("admin");
+        admin.setPassword("123");
+        log.info(loginController.postAccount(admin).getData());
 
-        Account xt = new Account();
-        xt.setUsername("xt");
-        xt.setPassword("123");
-        xt.setInviter("admin");
-        log.info(accountController.postAccount(xt).getData());
+        AccountRole accountRole = new AccountRole();
+        accountRole.setUsername("admin");
+        accountRole.setRole("admin");
 
-        zq.setPassword("456");
-        log.info(accountController.postAccount(zq).getData());
+        accountRoleRepository.save(accountRole);
 
-        List<Account> accountList = accountRepository.findAll();
-        for (Account account : accountList) {
-            log.info(account.toString());
-        }
+//        List<Account> accountList = accountRepository.findAll();
+//        for (Account account : accountList) {
+//            log.info(account.toString());
+//        }
     }
 
     @Test
@@ -60,6 +56,7 @@ public class AccountTest {
 
     @Test
     public void someTest() {
-        log.info(Calendar.getInstance().getTime().toString());
+        String tokenStr = RandomStringUtils.random(20, true, true);
+        log.info(tokenStr);
     }
 }
