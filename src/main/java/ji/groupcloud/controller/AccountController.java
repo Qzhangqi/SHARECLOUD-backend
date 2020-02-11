@@ -1,6 +1,7 @@
 package ji.groupcloud.controller;
 
-import ji.groupcloud.config.Role;
+import ji.groupcloud.constant.Role;
+import ji.groupcloud.constant.SessionAttr;
 import ji.groupcloud.dao.AccountRepository;
 import ji.groupcloud.dao.AccountRoleRepository;
 import ji.groupcloud.dto.Account;
@@ -15,9 +16,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,7 @@ public class AccountController {
 
     @Autowired
     private AccountRoleRepository accountRoleRepository;
+
     /**
      * 获取注册邀请码
      */
@@ -78,6 +80,21 @@ public class AccountController {
             return new Result<String>("0001", "登录成功", "登录成功");
         } else {
             return new Result<String>("0000", "登录失败", "登录失败");
+        }
+    }
+
+    /**
+     * 获取邀请者
+     */
+    @RequiresGuest
+    @GetMapping("/getInviter")
+    public Result<String> getInviter(HttpSession session) {
+        Object inviter = session.getAttribute(SessionAttr.INVITER);
+
+        if (inviter == null) {
+            return new Result<String>("0000", "请求错误", "请求错误");
+        } else {
+            return new Result<String>("0001", "获取成功", (String) inviter);
         }
     }
 }

@@ -35,6 +35,14 @@ public class InviteTokenCache {
         return tokenStr;
     }
 
+    public static String verifyInviteToken(String tokenStr) {
+        if (inviteTokenMap.containsKey(tokenStr)) {
+            return inviteTokenMap.get(tokenStr).getInviter();
+        } else {
+            return null;
+        }
+    }
+
     public static void clearInviteToken(Integer keepTime) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, -keepTime);
@@ -51,11 +59,5 @@ public class InviteTokenCache {
         }
     }
 
-    public static String verifyInviteToken(String tokenStr) {
-        if (inviteTokenMap.containsKey(tokenStr)) {
-            return inviteTokenMap.get(tokenStr).getInviter();
-        } else {
-            return null;
-        }
-    }
+
 }

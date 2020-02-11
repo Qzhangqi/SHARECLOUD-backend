@@ -1,6 +1,6 @@
 package ji.groupcloud.controller;
 
-import ji.groupcloud.config.Role;
+import ji.groupcloud.constant.Role;
 import ji.groupcloud.dto.FileInfo;
 import ji.groupcloud.dto.Result;
 import org.apache.shiro.authz.annotation.RequiresRoles;

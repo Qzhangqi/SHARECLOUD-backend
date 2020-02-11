@@ -16,7 +16,6 @@ public class UserRepositoryTest {
     @Test
     public void TestAccount() {
         Account account = new Account();
-        account.setId(1);
         account.setUsername("username");
         account.setPassword("password");
         log.info(account.toString());

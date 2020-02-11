@@ -20,7 +20,7 @@ public class ShiroConfig {
     @Bean
     public SimpleCookie rememberMeCookie(){
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
-        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        SimpleCookie simpleCookie = new SimpleCookie("auth");
         //记住我cookie生效时间30天 ,单位秒
         simpleCookie.setMaxAge(259200);
         return simpleCookie;

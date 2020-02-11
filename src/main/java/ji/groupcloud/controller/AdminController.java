@@ -1,6 +1,6 @@
 package ji.groupcloud.controller;
 
-import ji.groupcloud.config.Role;
+import ji.groupcloud.constant.Role;
 import ji.groupcloud.dao.AccountRepository;
 import ji.groupcloud.dao.AccountRoleRepository;
 import ji.groupcloud.dto.Account;
