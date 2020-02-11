@@ -26,6 +26,16 @@ public class GcRealm extends AuthorizingRealm {
     @Autowired
     private RolePermissionsRepository rolePermissionsRepository; //暂时用不到
 
+    public GcRealm() {
+        super();
+        setAuthenticationTokenClass(AuthenticationToken.class);
+    }
+
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return super.supports(token);
+    }
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String userName = (String) principals.getPrimaryPrincipal();
