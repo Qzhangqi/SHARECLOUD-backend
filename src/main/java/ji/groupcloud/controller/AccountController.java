@@ -4,9 +4,9 @@ import ji.groupcloud.constant.Role;
 import ji.groupcloud.constant.SessionAttr;
 import ji.groupcloud.dao.AccountRepository;
 import ji.groupcloud.dao.AccountRoleRepository;
-import ji.groupcloud.dto.Account;
-import ji.groupcloud.dto.AccountRole;
-import ji.groupcloud.dto.Result;
+import ji.groupcloud.bean.Account;
+import ji.groupcloud.bean.AccountRole;
+import ji.groupcloud.bean.Result;
 import ji.groupcloud.util.InviteTokenCache;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -48,7 +48,6 @@ public class AccountController {
     /**
      * 注册账户
      */
-    @RequiresRoles(Role.INVITEE)
     @PostMapping("/account")
     public Result<String> postAccount(Account account) {
         String username = account.getUsername();

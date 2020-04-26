@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="jquery.js"></script>
+    <meta charset="UTF-8">
+    <title>上传文件</title>
+</head>
+<style>
+    .img-container {
+        border-style: solid;
+        width: 300px;
+        height: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+    }
+</style>
+<body>
+<div class="img-container">
+    drop your image here
+</div>
+</body>
+<script>
+    $(".img-container").on("drop", function (event) {
+        event.preventDefault();
+        // 数据在event的dataTransfer对象里
+        let file = event.originalEvent.dataTransfer.files[0];
+
+        // 或者是添加到一个FormData
+        let formData = new FormData();
+        formData.append("fileContent", file);
+
+        url = "http://localhost:8080/uploadFile";
+
+        xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
+        xhr.open("post", url, true); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
+
+        xhr.upload.onloadstart = function(){//上传开始执行方法
+            ot = new Date().getTime();   //设置上传开始时间
+            oloaded = 0;//设置上传开始时，以上传的文件大小为0
+        };
+
+        xhr.send(form); //开始上传，发送form数据
+    })
+</script>
+</html>

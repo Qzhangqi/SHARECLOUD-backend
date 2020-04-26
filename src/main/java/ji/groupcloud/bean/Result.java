@@ -1,4 +1,4 @@
-package ji.groupcloud.dto;
+package ji.groupcloud.bean;
 
 import lombok.Data;
 

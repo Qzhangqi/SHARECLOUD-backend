@@ -1,7 +1,6 @@
 package ji.groupcloud.dao;
 
-import ji.groupcloud.dto.AccountRole;
-import org.springframework.data.annotation.Transient;
+import ji.groupcloud.bean.AccountRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
