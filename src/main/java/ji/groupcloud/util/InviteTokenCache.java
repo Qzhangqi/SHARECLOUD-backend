@@ -45,7 +45,7 @@ public class InviteTokenCache {
 
     public static void clearInviteToken(Integer keepTime) {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, -keepTime);
+        calendar.add(Calendar.HOUR_OF_DAY, -keepTime);
         Date beforeTime = calendar.getTime();
 
         while (!inviteTokenDeque.isEmpty()) {
@@ -53,6 +53,7 @@ public class InviteTokenCache {
             Date tokenTime = inviteToken.getCreatDate();
             if (tokenTime.before(beforeTime)) {
                 inviteTokenDeque.removeFirst();
+                inviteTokenMap.remove(inviteToken.getToken());
             } else {
                 break;
             }

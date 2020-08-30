@@ -6,22 +6,28 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "fileinfo")
+@Table(name = "fileinfo", indexes = {@Index(columnList = "username")})
 @Data
 public class FileInfo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String fileHash;
 
     @Column(nullable = false)
-    private String path;
+    private String fileName;
 
     @Column(nullable = false)
-    private String name;
+    private String username;
 
     @Column(nullable = false)
-    private String type;
+    private String fileSize;
 
     @Column(nullable = false)
-    private Date update;
+    private String fileType;
+
+    @Column(nullable = false)
+    private Date expireData;
+
+    public void setExpireData(long time) {
+        expireData = new Date(time);
+    }
 }

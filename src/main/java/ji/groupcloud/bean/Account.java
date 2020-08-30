@@ -12,7 +12,6 @@ public class Account {
     @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
     private String inviter;

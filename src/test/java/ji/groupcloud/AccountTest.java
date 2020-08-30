@@ -4,12 +4,16 @@ import ji.groupcloud.dao.AccountRepository;
 import ji.groupcloud.dao.AccountRoleRepository;
 import ji.groupcloud.bean.Account;
 import ji.groupcloud.bean.AccountRole;
+import ji.groupcloud.exception.SMSException;
+import ji.groupcloud.util.AuthCodeCache;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 @Slf4j
@@ -20,6 +24,9 @@ public class AccountTest {
 
     @Autowired
     private AccountRoleRepository accountRoleRepository;
+
+    @Autowired
+    private AuthCodeCache authCodeCache;
 
     @Test
     public void TestSignUp() {
@@ -42,29 +49,11 @@ public class AccountTest {
 
     @Test
     public void TestSignIn() {
-        Account zq = new Account();
-        zq.setUsername("zq");
-        zq.setPassword("123");
-//        log.info(loginController.login(zq).toString());
+
     }
 
     @Test
     public void someTest() {
-        ArrayList<Integer> array = new ArrayList<>();
-        array.add(1);
-        array.add(2);
-        array.add(3);
-        array.add(4);
-        array.add(5);
-        for (int i : array) {
-            System.out.print(i + "  ");
-        }
 
-        array.remove(3);
-        array.add(3, 8);
-
-        for (int i : array) {
-            System.out.print(i + "  ");
-        }
     }
 }
